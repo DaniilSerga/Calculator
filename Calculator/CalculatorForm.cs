@@ -40,7 +40,16 @@ namespace Calculator
         }
 
         // Calculates the result and displays it on the screen
-        private void EqualsButton_Click(object sender, EventArgs e) => OutputBox.Text = CalculateArithmeticExpression(output.ToString());
+        private void EqualsButton_Click(object sender, EventArgs e)
+        {
+            string result = CalculateArithmeticExpression(output.ToString());
+
+            output.Clear();
+
+            output.Append(result);
+
+            OutputBox.Text = output.ToString();
+        }
 
         // Clears the output window
         private void ClearButton_Click(object sender, EventArgs e)

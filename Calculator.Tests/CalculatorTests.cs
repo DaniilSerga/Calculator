@@ -1,6 +1,3 @@
-using CalculatorView;
-using System.Text;
-
 namespace Calculator.Tests
 {
     public class CalculatorTests

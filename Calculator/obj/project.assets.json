@@ -13,9 +13,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Supre\\source\\repos\\Calculator\\Calculator\\Calculator.csproj",
-      "projectName": "Calculator",
-      "projectPath": "C:\\Users\\Supre\\source\\repos\\Calculator\\Calculator\\Calculator.csproj",
+      "projectUniqueName": "C:\\Users\\Supre\\source\\repos\\Calculator\\Calculator\\CalculatorView.csproj",
+      "projectName": "CalculatorView",
+      "projectPath": "C:\\Users\\Supre\\source\\repos\\Calculator\\Calculator\\CalculatorView.csproj",
       "packagesPath": "C:\\Users\\Supre\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\Supre\\source\\repos\\Calculator\\Calculator\\obj\\",
       "projectStyle": "PackageReference",

@@ -20,7 +20,6 @@ namespace Calculator
             OutputBox.Text = output.ToString();
         }
 
-        // There're no possible way to print 2 dots together same as any sort of operation
         private void OperationButton_Click(object sender, EventArgs e)
         {
             if (output.Length == 0)
@@ -28,33 +27,22 @@ namespace Calculator
                 output.Append('0');
             }
 
+            if (char.IsPunctuation(output[^1]))
+            {
+                return;
+            }
+
             output.Append((sender as Button).Text);
 
             OutputBox.Text = output.ToString();
         }
 
-        //  TODO Implement calculations
         private void EqualsButton_Click(object sender, EventArgs e)
         {
-            //char[] arifmeticEquasions = new[] { '-', '+', '/', '*' };
-            //string[] numbers = output.ToString().Split(arifmeticEquasions);
-
-            //double result = double.Parse(numbers[0]);
-
-            //for (int i = 0, startIndex = 0; i < output.Length; i++)
-            //{
-            //    for (int j = 0; j < arifmeticEquasions.Length; j++)
-            //    {
-            //        if (output[i] == arifmeticEquasions[j])
-            //        {
-            //            //result = 
-            //        }
-            //    }
-            //}
-
             double result = Convert.ToDouble(new DataTable().Compute(output.ToString(), ""));
 
-            output.Append($"={result}");
+            output.Clear();
+            output.Append(result);
 
             OutputBox.Text = output.ToString();
         }
@@ -119,7 +107,7 @@ namespace Calculator
                     buttons[int.Parse(e.KeyChar.ToString())].PerformClick();
                     break;
             }
-            
+
             static bool SymbolIsOperation(char key)
             {
                 char[] operations = new[] { '.', '+', '-', '/', '*', '=' };

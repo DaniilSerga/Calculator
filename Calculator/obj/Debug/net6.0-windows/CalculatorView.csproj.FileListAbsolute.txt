@@ -4,7 +4,6 @@ C:\Users\Supre\source\repos\Calculator\Calculator\bin\Debug\net6.0-windows\Calcu
 C:\Users\Supre\source\repos\Calculator\Calculator\bin\Debug\net6.0-windows\CalculatorView.dll
 C:\Users\Supre\source\repos\Calculator\Calculator\bin\Debug\net6.0-windows\CalculatorView.pdb
 C:\Users\Supre\source\repos\Calculator\Calculator\obj\Debug\net6.0-windows\CalculatorView.csproj.AssemblyReference.cache
-C:\Users\Supre\source\repos\Calculator\Calculator\obj\Debug\net6.0-windows\Calculator.CalculatorForm.resources
 C:\Users\Supre\source\repos\Calculator\Calculator\obj\Debug\net6.0-windows\CalculatorView.csproj.GenerateResource.cache
 C:\Users\Supre\source\repos\Calculator\Calculator\obj\Debug\net6.0-windows\CalculatorView.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\Supre\source\repos\Calculator\Calculator\obj\Debug\net6.0-windows\CalculatorView.AssemblyInfoInputs.cache
@@ -15,3 +14,4 @@ C:\Users\Supre\source\repos\Calculator\Calculator\obj\Debug\net6.0-windows\refin
 C:\Users\Supre\source\repos\Calculator\Calculator\obj\Debug\net6.0-windows\CalculatorView.pdb
 C:\Users\Supre\source\repos\Calculator\Calculator\obj\Debug\net6.0-windows\CalculatorView.genruntimeconfig.cache
 C:\Users\Supre\source\repos\Calculator\Calculator\obj\Debug\net6.0-windows\ref\CalculatorView.dll
+C:\Users\Supre\source\repos\Calculator\Calculator\obj\Debug\net6.0-windows\Calculator.FormCalculator.resources

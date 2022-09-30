@@ -3,12 +3,14 @@ using System.Text;
 
 namespace Calculator
 {
-    public partial class CalculatorForm : Form
+    public partial class FormCalculator : Form
     {
+        // TODO Использовать один из паттернов проектирования (MVP, MVC, MVVV)
+
         // Local string containing everything entered from the user
         public readonly StringBuilder output = new();
 
-        public CalculatorForm()
+        public FormCalculator()
         {
             InitializeComponent();
         }
@@ -18,7 +20,7 @@ namespace Calculator
         {
             output.Append(((Button)sender).Text);
 
-            OutputBox.Text = output.ToString();
+            textDisplay.Text = output.ToString();
         }
 
         // Displays entered operation on the screen and saves it to a local string
@@ -29,14 +31,15 @@ namespace Calculator
                 output.Append('0');
             }
 
-            if (char.IsPunctuation(output[^1]))
+            // Replace the last char to a came one
+            if (char.IsSymbol(output[^1]) || char.IsPunctuation(output[^1]))
             {
-                return;
+                output.Remove(output.Length - 1, 1);
             }
 
             output.Append(((Button)sender).Text);
 
-            OutputBox.Text = output.ToString();
+            textDisplay.Text = output.ToString();
         }
 
         // Calculates the result and displays it on the screen
@@ -48,7 +51,7 @@ namespace Calculator
 
             output.Append(result);
 
-            OutputBox.Text = output.ToString();
+            textDisplay.Text = output.ToString();
         }
 
         // Clears the output window
@@ -61,26 +64,13 @@ namespace Calculator
 
             output.Clear();
 
-            OutputBox.Text = output.ToString();
+            textDisplay.Text = output.ToString();
         }
 
-        // Removes the last entered symbol from the local string and output window
-        private void RemoveLastButton_Click(object sender, EventArgs e)
-        {
-            if (output.Length == 0)
-            {
-                return;
-            }
-
-            output.Remove(output.Length - 1, 1);
-
-            OutputBox.Text = output.ToString();
-        }
-
-        // Allow user to interact with the calculator using keyboard
+        // Allow user to interact with the calculator via keyboard
         private void CalculatorForm_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (char.IsLetter(e.KeyChar) || char.IsWhiteSpace(e.KeyChar) || (!SymbolIsOperation(e.KeyChar) && !char.IsDigit(e.KeyChar) && e.KeyChar != (char)8))
+            if (char.IsLetter(e.KeyChar) || char.IsWhiteSpace(e.KeyChar) || (!SymbolIsOperation(e.KeyChar) && !char.IsDigit(e.KeyChar)))
             {
                 return;
             }
@@ -88,29 +78,25 @@ namespace Calculator
             switch (e.KeyChar)
             {
                 case '-':
-                    SubstractButton.PerformClick();
+                    buttonSubstract.PerformClick();
                     break;
                 case '+':
-                    SumButton.PerformClick();
+                    buttonAdd.PerformClick();
                     break;
                 case '/':
-                    DivideButton.PerformClick();
+                    buttonDivide.PerformClick();
                     break;
                 case '*':
-                    MultiplyButton.PerformClick();
+                    buttonMultiply.PerformClick();
                     break;
                 case '=':
-                    EqualsButton.PerformClick();
+                    buttonResult.PerformClick();
                     break;
                 case '.':
-                    DotButton.PerformClick();
-                    break;
-                case (char)8:
-                    // Backspace symbol
-                    RemoveLastButton.PerformClick();
+                    buttonDecimalPoint.PerformClick();
                     break;
                 default:
-                    Button[] buttons = new[] { Button0, Button1, Button2, Button3, Button4, Button5, Button6, Button7, Button8, Button9 };
+                    Button[] buttons = new[] { buttonZero, buttonOne, buttonTwo, buttonThree, buttonFour, buttonFive, buttonSix, buttonSeven, buttonEight, buttonNine };
                     buttons[int.Parse(e.KeyChar.ToString())].PerformClick();
                     break;
             }
@@ -126,11 +112,25 @@ namespace Calculator
         // Slides the scroll bar so that user can see what he is entering on the output window
         private void OutputBox_TextChanged(object sender, EventArgs e)
         {
-            OutputBox.SelectionStart = OutputBox.Text.Length;
-            OutputBox.ScrollToCaret();
+            textDisplay.SelectionStart = textDisplay.Text.Length;
+            textDisplay.ScrollToCaret();
+
+            if (output.Length == 0)
+            {
+                return;
+            }
+
+            if (char.IsPunctuation(output[^1]) || char.IsSymbol(output[^1]))
+            {
+                buttonResult.Enabled = false;
+            }
+            else
+            {
+                buttonResult.Enabled = true;
+            }
         }
 
-        // Claculates the expression
+        // Claculates the expression (includes Tests)
         public static string CalculateArithmeticExpression(string expression)
         {
             if (string.IsNullOrEmpty(expression))
@@ -138,9 +138,24 @@ namespace Calculator
                 throw new ArgumentNullException(nameof(expression), "Expressions string was null or empty.");
             }
 
-            double result = Convert.ToDouble(new DataTable().Compute(expression, ""));
+            if (char.IsSymbol(expression[^1]) || char.IsPunctuation(expression[^1]))
+            {
+                return expression;
+            }
+            
+            if (expression.StartsWith('-'))
+            {
+                expression = "0-" + expression[1..];
+            }
 
-            return result.ToString();
+            string result = (new DataTable().Compute(expression, "")).ToString()!;
+
+            if (result.Contains(','))
+            {
+                result = result.Replace(',', '.');
+            }
+
+            return result;
         }
     }
 }

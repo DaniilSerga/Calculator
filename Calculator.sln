@@ -5,7 +5,7 @@ VisualStudioVersion = 17.3.32901.215
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CalculatorView", "Calculator\CalculatorView.csproj", "{233BD954-7F46-48DA-8DD2-7438FA15F79D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Calculator.Tests", "Calculator.Tests\Calculator.Tests.csproj", "{52CD87AE-C19A-42E8-8DC1-08260617424B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Calculator.Tests", "Calculator.Tests\Calculator.Tests.csproj", "{52CD87AE-C19A-42E8-8DC1-08260617424B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

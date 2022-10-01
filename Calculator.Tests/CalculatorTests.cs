@@ -12,6 +12,7 @@ namespace Calculator.Tests
         /// <param name="expectedResult"> Exprected result of calculating an arithmetic expression </param>
         [Theory]
         [InlineData("2+2*2", "6")]
+        [InlineData("14/2+9", "16")]
         [InlineData("0*1", "0")]
         [InlineData("0.1+9.9", "10.0")]
         [InlineData("12", "12")]
@@ -30,6 +31,7 @@ namespace Calculator.Tests
         /// <param name="expectedResult"> Exprected result of calculating an arithmetic expression </param>
         [Theory]
         [InlineData("215+5", "220")]
+        [InlineData("14/2+9", "16")]
         [InlineData("15-", "15-")]
         [InlineData("0.1-9", "-8.9")]
         [InlineData("-5", "-5")]

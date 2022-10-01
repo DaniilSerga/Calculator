@@ -119,7 +119,7 @@
             this.buttonDivide.Name = "buttonDivide";
             this.buttonDivide.Size = new System.Drawing.Size(50, 50);
             this.buttonDivide.TabIndex = 14;
-            this.buttonDivide.Text = "÷";
+            this.buttonDivide.Text = "/";
             this.buttonDivide.UseVisualStyleBackColor = false;
             this.buttonDivide.Click += new System.EventHandler(this.OperationButton_Click);
             // 

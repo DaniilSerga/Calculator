@@ -22,7 +22,7 @@ namespace Calculator
             }
 
             output.Append(((Button)sender).Text);
-            
+
             textDisplay.Text = output.ToString();
         }
 
@@ -35,9 +35,37 @@ namespace Calculator
             }
 
             // Replace the last char to a came one
-            if (char.IsSymbol(output[^1]) || char.IsPunctuation(output[^1]))
+            if ((char.IsSymbol(output[^1]) || char.IsPunctuation(output[^1])) && ((Button)sender).ToString() != "-")
             {
                 output.Remove(output.Length - 1, 1);
+            }
+
+            // This code doesn's allow user to add more than one dot per a number
+            // So user cannot do 0.0.0.0.1, but 0.1
+            if (((Button)sender).Text == ".")
+            {
+                int startIndex = output.ToString().LastIndexOfAny(new char[] { '+', '-', '/', '*' });
+
+                if (startIndex == -1)
+                {
+                    for (int i = 0; i < output.Length; i++)
+                    {
+                        if (output[i] == '.')
+                        {
+                            return;
+                        }
+                    }
+                }
+                else
+                {
+                    for (int i = startIndex; i < output.Length; i++)
+                    {
+                        if (output[i] == '.')
+                        {
+                            return;
+                        }
+                    }
+                }
             }
 
             output.Append(((Button)sender).Text);
@@ -64,7 +92,7 @@ namespace Calculator
             {
                 return;
             }
-            
+
             output.Clear();
 
             textDisplay.Text = output.ToString();
@@ -138,22 +166,34 @@ namespace Calculator
         {
             if (string.IsNullOrEmpty(expression))
             {
-                throw new ArgumentNullException(nameof(expression), "Expressions string was null or empty.");
+                return expression;
             }
 
             if (char.IsSymbol(expression[^1]) || char.IsPunctuation(expression[^1]))
             {
                 return expression;
             }
-            
+
             if (expression.StartsWith('-'))
             {
                 expression = "0-" + expression[1..];
             }
 
-            string result = (new DataTable().Compute(expression, "")).ToString()!;
+            string result = string.Empty;
 
-            if (result.Contains(','))
+            try
+            {
+                result = new DataTable().Compute(expression, "").ToString()!;
+            }
+            catch(OverflowException ex)
+            {
+                MessageBox.Show(ex.Message, 
+                                "Слишком большие числа(о)", 
+                                MessageBoxButtons.OK, 
+                                MessageBoxIcon.Error);
+            }
+
+            if (result!.Contains(','))
             {
                 result = result.Replace(',', '.');
             }

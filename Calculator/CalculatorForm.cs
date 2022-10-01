@@ -5,10 +5,8 @@ namespace Calculator
 {
     public partial class FormCalculator : Form
     {
-        // TODO Использовать один из паттернов проектирования (MVP, MVC, MVVV)
-
         // Local string containing everything entered from the user
-        public readonly StringBuilder output = new();
+        public StringBuilder output = new();
 
         public FormCalculator()
         {
@@ -16,15 +14,20 @@ namespace Calculator
         }
 
         // Displays entered number on the screen and saves entered value to a local string
-        private void NumberButton_Click(object sender, EventArgs e)
+        public void NumberButton_Click(object sender, EventArgs e)
         {
-            output.Append(((Button)sender).Text);
+            if (!char.IsDigit(((Button)sender).Text[0]))
+            {
+                return;
+            }
 
+            output.Append(((Button)sender).Text);
+            
             textDisplay.Text = output.ToString();
         }
 
         // Displays entered operation on the screen and saves it to a local string
-        private void OperationButton_Click(object sender, EventArgs e)
+        public void OperationButton_Click(object sender, EventArgs e)
         {
             if (output.Length == 0)
             {
@@ -43,7 +46,7 @@ namespace Calculator
         }
 
         // Calculates the result and displays it on the screen
-        private void EqualsButton_Click(object sender, EventArgs e)
+        public void EqualsButton_Click(object sender, EventArgs e)
         {
             string result = CalculateArithmeticExpression(output.ToString());
 
@@ -55,22 +58,22 @@ namespace Calculator
         }
 
         // Clears the output window
-        private void ClearButton_Click(object sender, EventArgs e)
+        public void ClearButton_Click(object sender, EventArgs e)
         {
             if (output.Length == 0)
             {
                 return;
             }
-
+            
             output.Clear();
 
             textDisplay.Text = output.ToString();
         }
 
         // Allow user to interact with the calculator via keyboard
-        private void CalculatorForm_KeyPress(object sender, KeyPressEventArgs e)
+        public void CalculatorForm_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (char.IsLetter(e.KeyChar) || char.IsWhiteSpace(e.KeyChar) || (!SymbolIsOperation(e.KeyChar) && !char.IsDigit(e.KeyChar)))
+            if ((!SymbolIsOperation(e.KeyChar) && !char.IsDigit(e.KeyChar)))
             {
                 return;
             }
@@ -110,7 +113,7 @@ namespace Calculator
         }
 
         // Slides the scroll bar so that user can see what he is entering on the output window
-        private void OutputBox_TextChanged(object sender, EventArgs e)
+        public void OutputBox_TextChanged(object sender, EventArgs e)
         {
             textDisplay.SelectionStart = textDisplay.Text.Length;
             textDisplay.ScrollToCaret();
@@ -130,7 +133,7 @@ namespace Calculator
             }
         }
 
-        // Claculates the expression (includes Tests)
+        // Claculates the expression
         public static string CalculateArithmeticExpression(string expression)
         {
             if (string.IsNullOrEmpty(expression))

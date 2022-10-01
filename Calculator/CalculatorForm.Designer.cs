@@ -311,7 +311,7 @@
         private Button buttonNine;
         private Button buttonEight;
         private Button buttonSeven;
-        private Button buttonResult;
+        public Button buttonResult;
         private Button buttonAdd;
         private Button buttonSubstract;
         private Button buttonMultiply;

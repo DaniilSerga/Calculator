@@ -40,30 +40,19 @@ namespace Calculator
                 output.Remove(output.Length - 1, 1);
             }
 
-            // This code doesn's allow user to add more than one dot per a number
+            // The following code doesn's allow user to add more than one dot per a number
             // So user cannot do 0.0.0.0.1, but 0.1
             if (((Button)sender).Text == ".")
             {
                 int startIndex = output.ToString().LastIndexOfAny(new char[] { '+', '-', '/', '*' });
+                
+                startIndex = startIndex == -1 ? 0 : startIndex;
 
-                if (startIndex == -1)
+                for (int i = startIndex; i < output.Length; i++)
                 {
-                    for (int i = 0; i < output.Length; i++)
+                    if (output[i] == '.')
                     {
-                        if (output[i] == '.')
-                        {
-                            return;
-                        }
-                    }
-                }
-                else
-                {
-                    for (int i = startIndex; i < output.Length; i++)
-                    {
-                        if (output[i] == '.')
-                        {
-                            return;
-                        }
+                        return;
                     }
                 }
             }
@@ -132,6 +121,7 @@ namespace Calculator
                     break;
             }
 
+            // Checks if the entered value is an operation symbol
             static bool SymbolIsOperation(char key)
             {
                 char[] operations = new[] { '.', '+', '-', '/', '*', '=' };
@@ -183,7 +173,7 @@ namespace Calculator
 
             try
             {
-                result = new DataTable().Compute(expression, "").ToString()!;
+                result = new DataTable().Compute(expression, "").ToString()!.Replace(',', '.');
             }
             catch(OverflowException ex)
             {
@@ -191,11 +181,6 @@ namespace Calculator
                                 "Слишком большие числа(о)", 
                                 MessageBoxButtons.OK, 
                                 MessageBoxIcon.Error);
-            }
-
-            if (result!.Contains(','))
-            {
-                result = result.Replace(',', '.');
             }
 
             return result;

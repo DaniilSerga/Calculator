@@ -1,3 +1,5 @@
+using Microsoft.VisualStudio.TestPlatform.Utilities;
+using System.Linq.Expressions;
 using System.Text;
 using System.Windows.Forms;
 
@@ -64,24 +66,25 @@ namespace Calculator.Tests
         }
 
         /// <summary>
-        /// Tests if the output value's end char is equal to the entered operation value. 
+        /// Tests if the output is equal to the entered operation value. 
         /// </summary>
         /// <param name="operation"> Operation value </param>
         [Theory]
-        [InlineData("/")]
-        [InlineData("*")]
-        [InlineData("-")]
-        [InlineData("+")]
-        [InlineData(".")]
-        public void OperationButton_Click_EndsWithEnteredOperation(string operation)
+        [InlineData("/", "0/")]
+        [InlineData("*", "0*")]
+        [InlineData("-","0-")]
+        [InlineData("+", "0+")]
+        public void OperationButton_Click_EndsWithEnteredOperation(string operation, string expected)
         {
             FormCalculator calculator = new();
 
             object sender = new Button() { Text = operation };
 
             calculator.OperationButton_Click(sender, EventArgs.Empty);
+            
+            string actual = string.Join(string.Empty, calculator.expression.ToArray()) + calculator.output.ToString();
 
-            Assert.EndsWith(operation, calculator.output.ToString());
+            Assert.Equal(expected, actual);
         }
 
         /// <summary>

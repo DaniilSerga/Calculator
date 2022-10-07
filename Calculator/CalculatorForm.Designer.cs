@@ -28,10 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormCalculator));
             this.panel1 = new System.Windows.Forms.Panel();
             this.textDisplay = new System.Windows.Forms.TextBox();
             this.buttonClean = new System.Windows.Forms.Button();
-            this.buttonDecimalPoint = new System.Windows.Forms.Button();
+            this.ButtonNegation = new System.Windows.Forms.Button();
             this.buttonDivide = new System.Windows.Forms.Button();
             this.buttonNine = new System.Windows.Forms.Button();
             this.buttonEight = new System.Windows.Forms.Button();
@@ -47,14 +48,21 @@
             this.buttonTwo = new System.Windows.Forms.Button();
             this.buttonOne = new System.Windows.Forms.Button();
             this.buttonZero = new System.Windows.Forms.Button();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.buttonMinimize = new System.Windows.Forms.Button();
+            this.buttonClose = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
             // 
             this.panel1.Controls.Add(this.textDisplay);
             this.panel1.Controls.Add(this.buttonClean);
-            this.panel1.Controls.Add(this.buttonDecimalPoint);
+            this.panel1.Controls.Add(this.ButtonNegation);
             this.panel1.Controls.Add(this.buttonDivide);
             this.panel1.Controls.Add(this.buttonNine);
             this.panel1.Controls.Add(this.buttonEight);
@@ -70,19 +78,20 @@
             this.panel1.Controls.Add(this.buttonTwo);
             this.panel1.Controls.Add(this.buttonOne);
             this.panel1.Controls.Add(this.buttonZero);
-            this.panel1.Location = new System.Drawing.Point(12, 12);
+            this.panel1.Location = new System.Drawing.Point(12, 53);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(281, 302);
             this.panel1.TabIndex = 0;
             // 
             // textDisplay
             // 
-            this.textDisplay.Font = new System.Drawing.Font("Segoe UI", 22F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.textDisplay.Font = new System.Drawing.Font("Segoe UI", 35F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.textDisplay.Location = new System.Drawing.Point(3, 3);
+            this.textDisplay.MaxLength = 10;
             this.textDisplay.Multiline = true;
             this.textDisplay.Name = "textDisplay";
             this.textDisplay.ReadOnly = true;
-            this.textDisplay.ScrollBars = System.Windows.Forms.ScrollBars.Horizontal;
+            this.textDisplay.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.textDisplay.Size = new System.Drawing.Size(274, 72);
             this.textDisplay.TabIndex = 1;
             this.textDisplay.WordWrap = false;
@@ -100,16 +109,16 @@
             this.buttonClean.UseVisualStyleBackColor = false;
             this.buttonClean.Click += new System.EventHandler(this.ClearButton_Click);
             // 
-            // buttonDecimalPoint
+            // ButtonNegation
             // 
-            this.buttonDecimalPoint.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.buttonDecimalPoint.Location = new System.Drawing.Point(59, 249);
-            this.buttonDecimalPoint.Name = "buttonDecimalPoint";
-            this.buttonDecimalPoint.Size = new System.Drawing.Size(50, 50);
-            this.buttonDecimalPoint.TabIndex = 15;
-            this.buttonDecimalPoint.Text = ".";
-            this.buttonDecimalPoint.UseVisualStyleBackColor = true;
-            this.buttonDecimalPoint.Click += new System.EventHandler(this.OperationButton_Click);
+            this.ButtonNegation.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.ButtonNegation.Location = new System.Drawing.Point(59, 249);
+            this.ButtonNegation.Name = "ButtonNegation";
+            this.ButtonNegation.Size = new System.Drawing.Size(50, 50);
+            this.ButtonNegation.TabIndex = 15;
+            this.ButtonNegation.Text = "+/-";
+            this.ButtonNegation.UseVisualStyleBackColor = true;
+            this.ButtonNegation.Click += new System.EventHandler(this.ButtonNegation_Click);
             // 
             // buttonDivide
             // 
@@ -281,18 +290,84 @@
             this.buttonZero.UseVisualStyleBackColor = false;
             this.buttonZero.Click += new System.EventHandler(this.NumberButton_Click);
             // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::CalculatorView.Properties.Resources.Calculator_31111;
+            this.pictureBox1.Location = new System.Drawing.Point(3, 3);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(48, 42);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.pictureBox1.TabIndex = 1;
+            this.pictureBox1.TabStop = false;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label1.Location = new System.Drawing.Point(53, 9);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(124, 25);
+            this.label1.TabIndex = 2;
+            this.label1.Text = "MyCalculator";
+            // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.buttonMinimize);
+            this.panel2.Controls.Add(this.buttonClose);
+            this.panel2.Controls.Add(this.pictureBox1);
+            this.panel2.Controls.Add(this.label1);
+            this.panel2.Location = new System.Drawing.Point(0, 0);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(305, 47);
+            this.panel2.TabIndex = 3;
+            // 
+            // buttonMinimize
+            // 
+            this.buttonMinimize.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.buttonMinimize.BackColor = System.Drawing.SystemColors.Window;
+            this.buttonMinimize.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.buttonMinimize.Location = new System.Drawing.Point(216, 4);
+            this.buttonMinimize.Name = "buttonMinimize";
+            this.buttonMinimize.Size = new System.Drawing.Size(40, 40);
+            this.buttonMinimize.TabIndex = 4;
+            this.buttonMinimize.Text = "–";
+            this.buttonMinimize.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.buttonMinimize.UseVisualStyleBackColor = false;
+            this.buttonMinimize.Click += new System.EventHandler(this.buttonMinimize_Click);
+            // 
+            // buttonClose
+            // 
+            this.buttonClose.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.buttonClose.BackColor = System.Drawing.SystemColors.Window;
+            this.buttonClose.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.buttonClose.Location = new System.Drawing.Point(262, 4);
+            this.buttonClose.Name = "buttonClose";
+            this.buttonClose.Size = new System.Drawing.Size(40, 40);
+            this.buttonClose.TabIndex = 3;
+            this.buttonClose.Text = "x";
+            this.buttonClose.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.buttonClose.UseVisualStyleBackColor = false;
+            this.buttonClose.Click += new System.EventHandler(this.buttonClose_Click);
+            // 
             // FormCalculator
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(306, 327);
+            this.BackColor = System.Drawing.SystemColors.Window;
+            this.ClientSize = new System.Drawing.Size(306, 367);
+            this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
             this.Name = "FormCalculator";
-            this.Text = " Calculator";
+            this.Text = "MyCalculator";
             this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.CalculatorForm_KeyPress);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -316,7 +391,12 @@
         private Button buttonSubstract;
         private Button buttonMultiply;
         private TextBox textDisplay;
-        private Button buttonDecimalPoint;
+        private Button ButtonNegation;
         private Button buttonClean;
+        private PictureBox pictureBox1;
+        private Label label1;
+        private Panel panel2;
+        private Button buttonMinimize;
+        private Button buttonClose;
     }
 }

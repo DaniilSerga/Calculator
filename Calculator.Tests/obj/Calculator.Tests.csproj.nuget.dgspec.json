@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Supre\\Source\\Repos\\CalculatorGitHub2\\Calculator.Tests\\Calculator.Tests.csproj": {}
+    "C:\\Users\\Supre\\source\\repos\\Calculator03102\\Calculator.Tests\\Calculator.Tests.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Supre\\Source\\Repos\\CalculatorGitHub2\\Calculator.Tests\\Calculator.Tests.csproj": {
+    "C:\\Users\\Supre\\source\\repos\\Calculator03102\\Calculator.Tests\\Calculator.Tests.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Supre\\Source\\Repos\\CalculatorGitHub2\\Calculator.Tests\\Calculator.Tests.csproj",
+        "projectUniqueName": "C:\\Users\\Supre\\source\\repos\\Calculator03102\\Calculator.Tests\\Calculator.Tests.csproj",
         "projectName": "Calculator.Tests",
-        "projectPath": "C:\\Users\\Supre\\Source\\Repos\\CalculatorGitHub2\\Calculator.Tests\\Calculator.Tests.csproj",
+        "projectPath": "C:\\Users\\Supre\\source\\repos\\Calculator03102\\Calculator.Tests\\Calculator.Tests.csproj",
         "packagesPath": "C:\\Users\\Supre\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Supre\\Source\\Repos\\CalculatorGitHub2\\Calculator.Tests\\obj\\",
+        "outputPath": "C:\\Users\\Supre\\source\\repos\\Calculator03102\\Calculator.Tests\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Supre\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -28,8 +28,8 @@
           "net6.0-windows7.0": {
             "targetAlias": "net6.0-windows",
             "projectReferences": {
-              "C:\\Users\\Supre\\Source\\Repos\\CalculatorGitHub2\\Calculator\\CalculatorView.csproj": {
-                "projectPath": "C:\\Users\\Supre\\Source\\Repos\\CalculatorGitHub2\\Calculator\\CalculatorView.csproj"
+              "C:\\Users\\Supre\\source\\repos\\Calculator03102\\Calculator\\CalculatorView.csproj": {
+                "projectPath": "C:\\Users\\Supre\\source\\repos\\Calculator03102\\Calculator\\CalculatorView.csproj"
               }
             }
           }
@@ -85,14 +85,14 @@
         }
       }
     },
-    "C:\\Users\\Supre\\Source\\Repos\\CalculatorGitHub2\\Calculator\\CalculatorView.csproj": {
+    "C:\\Users\\Supre\\source\\repos\\Calculator03102\\Calculator\\CalculatorView.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Supre\\Source\\Repos\\CalculatorGitHub2\\Calculator\\CalculatorView.csproj",
+        "projectUniqueName": "C:\\Users\\Supre\\source\\repos\\Calculator03102\\Calculator\\CalculatorView.csproj",
         "projectName": "CalculatorView",
-        "projectPath": "C:\\Users\\Supre\\Source\\Repos\\CalculatorGitHub2\\Calculator\\CalculatorView.csproj",
+        "projectPath": "C:\\Users\\Supre\\source\\repos\\Calculator03102\\Calculator\\CalculatorView.csproj",
         "packagesPath": "C:\\Users\\Supre\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Supre\\Source\\Repos\\CalculatorGitHub2\\Calculator\\obj\\",
+        "outputPath": "C:\\Users\\Supre\\source\\repos\\Calculator03102\\Calculator\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Supre\\AppData\\Roaming\\NuGet\\NuGet.Config",

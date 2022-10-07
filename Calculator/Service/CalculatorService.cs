@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Data;
+using CalculatorView.Model;
 
-namespace CalculatorView
+namespace CalculatorView.Service
 {
     public class CalculatorService
     {
@@ -63,7 +59,7 @@ namespace CalculatorView
                 _model.Output = "EXCEEDED";
             }
         }
-        
+
         /// <summary>
         /// Clears output field.
         /// </summary>

@@ -1,13 +1,10 @@
-using CalculatorView;
-using System.Data;
-using System.Text;
+using CalculatorView.Model;
+using CalculatorView.Service;
 
 namespace Calculator
 {
     public partial class FormCalculator : Form
     {
-        public StringBuilder output = new();
-        public List<string> expression = new();
         private readonly CalculatorService _service = new(_model);
         private static readonly CalculatorModel _model = new();
         
@@ -113,7 +110,15 @@ namespace Calculator
         // with incorrect input string
         public void OutputBox_TextChanged(object sender, EventArgs e)
         {
-            if (char.IsPunctuation(output[^1]) || char.IsSymbol(output[^1]) || output.Length == 0)
+            string output = textDisplay.Text;
+
+            if (output.Length == 0)
+            {
+                buttonResult.Enabled = false;
+                return;
+            }
+
+            if (char.IsPunctuation(output[^1]) || char.IsSymbol(output[^1]))
             {
                 buttonResult.Enabled = false;
             }

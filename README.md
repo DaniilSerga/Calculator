@@ -2,7 +2,7 @@
 
 В данной работе был разработан калькулятор и юнит-тесты для тестирования его работы.
 ____
-![image](https://user-images.githubusercontent.com/87036978/193402465-b0f55e27-95b7-4d9c-99fd-2d8774f7c7a1.png)
+![image](https://user-images.githubusercontent.com/87036978/194644054-425b5b81-b8be-4a76-9b71-4ffca9ca59df.png)
 
 *На изображении выше изображён разработанный калькулятор.*
 ____

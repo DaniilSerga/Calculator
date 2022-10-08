@@ -1,4 +1,5 @@
 ﻿using System.Data;
+using System.Text;
 using CalculatorView.Model;
 
 namespace CalculatorView.Service
@@ -13,20 +14,28 @@ namespace CalculatorView.Service
         }
 
         /// <summary>
-        /// Allows calculator view access the output string.
+        /// Allows user to see the output string.
         /// </summary>
         /// <returns>Output string.</returns>
         public string GetOutputString() => _model.Output;
 
         /// <summary>
+        /// Allows user to see the result.
+        /// </summary>
+        /// <returns>Result of an arithmetic expression.</returns>
+        //public string GetResult() => _model.Result;
+
+        public void EqualsButtonPressed()
+        {
+            _model.Expression = _model.Output;
+
+            CalculateArithmeticExpression(_model.Expression);
+        }
+        /// <summary>
         /// Calculates arithmetic expression.
         /// </summary>
-        /// <param name="expression">A string representation of an arithmetic expression.</param>
-        /// <returns> Calculation result.</returns>
-        public void CalculateArithmeticExpression()
+        public void CalculateArithmeticExpression(string expression)
         {
-            string expression = _model.Output;
-
             if (string.IsNullOrEmpty(expression))
             {
                 return;
@@ -42,22 +51,28 @@ namespace CalculatorView.Service
                 expression = "0-" + expression[1..];
             }
 
+            string result;
+
             try
             {
-                _model.Output = new DataTable()
+                result = new DataTable()
                             .Compute(expression, "")
                             .ToString()!
                             .Replace(',', '.');
             }
             catch
             {
-                _model.Output = "EXCEEDED";
+                result = "EXCEEDED";
             }
 
-            if (_model.Output.Length >= 8 && _model.Output.Contains('.'))
+            if (result.Length >= 8 && result.Contains('.'))
             {
-                _model.Output = "EXCEEDED";
+                result = "EXCEEDED";
             }
+
+            ReWriteOutput(result);
+
+            _model.Expression = string.Empty;
         }
 
         /// <summary>
@@ -77,7 +92,7 @@ namespace CalculatorView.Service
         {
             if (string.IsNullOrEmpty(input))
             {
-                throw new ArgumentNullException(nameof(input), "Input string was null or empty (NumberButtonPressed)");
+                return;
             }
 
             if (!char.IsDigit(input[0]) || _model.Output.Length > 8)
@@ -87,5 +102,42 @@ namespace CalculatorView.Service
 
             _model.Output = input;
         }
+
+        public void OperationButtonPressed(string input)
+        {
+            if (_model.Output.Length == 0)
+            {
+                _model.Output.Append('0');
+            }
+
+            // Replace the last char to a came one
+            if ((char.IsSymbol(_model.Output[^1]) || char.IsPunctuation(_model.Output[^1])) && input != "-")
+            {
+                _model.Output.Remove(_model.Output.Length - 1, 1);
+            }
+
+            _model.Output = input;
+
+            SaveAndClearOutputString();
+        }
+
+        #region Output methods
+        private void SaveAndClearOutputString()
+        {
+            if (string.IsNullOrEmpty(_model.Output))
+            {
+                return;
+            }
+
+            _model.Expression = _model.Output;
+            _model.Output = string.Empty;
+        }
+
+        private void ReWriteOutput(string value)
+        {
+            _model.Output = string.Empty;
+            _model.Output = value;
+        }
+        #endregion
     }
 }

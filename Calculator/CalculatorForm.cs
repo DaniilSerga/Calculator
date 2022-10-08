@@ -13,12 +13,12 @@ namespace Calculator
             InitializeComponent();
 
             CalculatorModel.OutputChanged += RefreshOutputField;
+            //CalculatorModel.ResultChanged += GetResult;
         }
 
-        private void RefreshOutputField()
-        {
-            textDisplay.Text = _service.GetOutputString();
-        }
+        private void RefreshOutputField() => textDisplay.Text = _service.GetOutputString();
+
+        //private void GetResult() => textDisplay.Text = _service.GetResult();
 
         // Displays entered number on the screen and saves entered value to a local string
         public void NumberButton_Click(object sender, EventArgs e)
@@ -29,24 +29,9 @@ namespace Calculator
         // TODO Displays entered operation on the screen and saves it to a local string
         public void OperationButton_Click(object sender, EventArgs e)
         {
-            //if (output.Length == 0)
-            //{
-            //    output.Append('0');
-            //}
+            _service.OperationButtonPressed(((Button)sender).Text);
 
-            //// Replace the last char to a came one
-            //if ((char.IsSymbol(output[^1]) || char.IsPunctuation(output[^1])) && ((Button)sender).ToString() != "-")
-            //{
-            //    output.Remove(output.Length - 1, 1);
-            //}
-
-            //output.Append(((Button)sender).Text);
-
-            //expression.Add(output.ToString());
-
-            //output.Clear();
-
-            //textDisplay.Text = string.Empty;
+            textDisplay.Text = string.Empty;
         }
 
         // TODO TEST Calculates the result and displays it on the screen
@@ -54,7 +39,7 @@ namespace Calculator
         {
             //string calculationParam = string.Join(string.Empty, expression.ToArray()) + output.ToString();
 
-            _service.CalculateArithmeticExpression();
+            _service.EqualsButtonPressed();
         }
 
         // Clears the output window

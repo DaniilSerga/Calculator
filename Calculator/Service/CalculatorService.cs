@@ -23,14 +23,13 @@ namespace CalculatorView.Service
         /// Allows user to see the result.
         /// </summary>
         /// <returns>Result of an arithmetic expression.</returns>
-        //public string GetResult() => _model.Result;
-
         public void EqualsButtonPressed()
         {
             _model.Expression = _model.Output;
 
             CalculateArithmeticExpression(_model.Expression);
         }
+
         /// <summary>
         /// Calculates arithmetic expression.
         /// </summary>
@@ -88,6 +87,10 @@ namespace CalculatorView.Service
             _model.Output = string.Empty;
         }
 
+        /// <summary>
+        /// Adds a new number to an expresssion.
+        /// </summary>
+        /// <param name="input"> Number adding to an expression</param>
         public void NumberButtonPressed(string input)
         {
             if (string.IsNullOrEmpty(input))
@@ -103,6 +106,10 @@ namespace CalculatorView.Service
             _model.Output = input;
         }
 
+        /// <summary>
+        /// Add an operation to an expression.
+        /// </summary>
+        /// <param name="input"> Operation adding to an expression. </param>
         public void OperationButtonPressed(string input)
         {
             if (_model.Output.Length == 0)
@@ -119,6 +126,13 @@ namespace CalculatorView.Service
             _model.Output = input;
 
             SaveAndClearOutputString();
+        }
+
+        public void NegateNubmer()
+        {
+            double number = double.Parse(_model.Output);
+
+            _model.Output = (number * (-1)).ToString();
         }
 
         #region Output methods

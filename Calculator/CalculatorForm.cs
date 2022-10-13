@@ -13,12 +13,9 @@ namespace Calculator
             InitializeComponent();
 
             CalculatorModel.OutputChanged += RefreshOutputField;
-            //CalculatorModel.ResultChanged += GetResult;
         }
 
         private void RefreshOutputField() => textDisplay.Text = _service.GetOutputString();
-
-        //private void GetResult() => textDisplay.Text = _service.GetResult();
 
         // Displays entered number on the screen and saves entered value to a local string
         public void NumberButton_Click(object sender, EventArgs e)
@@ -120,7 +117,7 @@ namespace Calculator
         // TODO Negation button
         private void ButtonNegation_Click(object sender, EventArgs e)
         {
-
+            _service.NegateNubmer();
         }
     }
 }

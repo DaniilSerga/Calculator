@@ -9,6 +9,16 @@ namespace Calculator.Tests
 {
     public class CalculatorTests
     {
+        private static readonly CalculatorModel _model = new();
+        private readonly CalculatorService _service = new (_model);
+
+        public CalculatorTests()
+        {
+            CalculatorModel.OutputChanged += SomeEventAction;
+        }
+
+        private void SomeEventAction() { }
+
         /// <summary>
         /// Tests the result of calculating arithmetic expressions.
         /// </summary>
@@ -26,42 +36,30 @@ namespace Calculator.Tests
         public void CalculateArithmeticExpression_ResultCalculation(string expression, string expectedResult)
         {
             // Arrange
-            CalculatorModel model = new();
-            CalculatorService service = new(model);
+            _model.Expression = expression;
 
             // Act
-            CalculatorModel.OutputChanged += null;
-
-            model.Expression = expression;
-            service.CalculateArithmeticExpression(model.Expression);
+            _service.CalculateArithmeticExpression(_model.Expression);
 
             // Assert
-            Assert.Equal(expectedResult, model.Output);
-        }
-
-        /// <summary>
-        /// Does the same as the previous test, but checks if the button access is working fine.
-        /// </summary>
-        /// <param name="expression"> Input arithmetic expression. </param>
-        /// <param name="expectedResult"> Exprected result of calculating an arithmetic expression </param>
-        [Theory]
-        [InlineData("215+5", "220")]
-        [InlineData("14/2+9", "16")]
-        [InlineData("15-", "15-")]
-        [InlineData("0.1-9", "-8.9")]
-        [InlineData("-5", "-5")]
-        public void EqualsButton_Click_Tests(string expression, string expectedResult)
-        {
-            
+            Assert.Equal(expectedResult, _model.Output);
         }
 
         /// <summary>
         /// Tests if the clear button is working normally
         /// </summary>
-        [Fact]
-        public void ClearButton_Click_EqualsToEmptyString()
+        [Theory]
+        [InlineData("12+3")]
+        public void ClearButton_Click_EqualsToEmptyString(string expression)
         {
-            
+            // Arrange
+            _model.Output = expression;
+
+            // Act
+            _service.ClearOutputField();
+
+            // Assert
+            Assert.Empty(_model.Output);
         }
 
         /// <summary>
@@ -69,21 +67,27 @@ namespace Calculator.Tests
         /// </summary>
         /// <param name="operation"> Operation value </param>
         [Theory]
-        [InlineData("/", "0/")]
-        [InlineData("*", "0*")]
-        [InlineData("-","0-")]
-        [InlineData("+", "0+")]
-        public void OperationButton_Click_EndsWithEnteredOperation(string operation, string expected)
+        [InlineData("12", "/", "12/")]
+        [InlineData("0", "*", "0*")]
+        [InlineData("0.45", "-","0.45-")]
+        [InlineData("13+2", "+", "13+2+")]
+        public void OperationButton_Click_EndsWithEnteredOperation(string expression, string operation, string expected)
         {
-            
+            // Arrange
+            _model.Output = expression;
+
+            // Act
+            _service.OperationButtonPressed(operation);
+
+            // Assert
+            Assert.EndsWith(expected, _model.Expression);
         }
 
         /// <summary>
         /// Tests if the output value's end char is equal to the entered number value. 
         /// </summary>
-        /// <param name="number"> Number value </param>
+        /// <param name="input"> Input value </param>
         [Theory]
-        [InlineData("0")]
         [InlineData("1")]
         [InlineData("2")]
         [InlineData("3")]
@@ -93,41 +97,16 @@ namespace Calculator.Tests
         [InlineData("7")]
         [InlineData("8")]
         [InlineData("9")]
-        public void NumberButton_Click_EndsWithEnteredNumber(string number)
+        public void NumberButton_Click_EndsWithEnteredNumber(string input)
         {
-            
-        }
+            // Arrange
+            Button button = new() { Text = input };
 
-        /// <summary>
-        /// Tests whether the entered expression is not displayed on the user's screen.
-        /// </summary>
-        /// <param name="output"> Entered expression </param>
-        [Theory]
-        [InlineData("125+")]
-        [InlineData("125.")]
-        [InlineData("125-")]
-        [InlineData("125*")]
-        [InlineData("125/")]
-        [InlineData("125=")]
-        public void CalculatorForm_KeyPress_ReturnsFalse(string output)
-        {
-            
-        }
+            // Act
+            _service.NumberButtonPressed(button.Text);
 
-        /// <summary>
-        /// Tests whether the entered expression is displayed on the user's screen.
-        /// </summary>
-        /// <param name="output"> Entered expression </param>
-        [Theory]
-        [InlineData("125+1")]
-        [InlineData("125.1")]
-        [InlineData("125-1")]
-        [InlineData("125*1")]
-        [InlineData("125/1")]
-        [InlineData("125=1")]
-        public void CalculatorForm_KeyPress_ReturnsTrue(string output)
-        {
-            
+            // Assert
+            Assert.EndsWith(input, _model.Output);
         }
     }
 }

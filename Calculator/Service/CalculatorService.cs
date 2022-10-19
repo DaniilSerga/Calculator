@@ -153,7 +153,7 @@ namespace CalculatorView.Service
         /// </summary>
         public void NegateNubmer()
         {
-            if (_model.Output.Length == 0)
+            if (_model.Output == "EXCEEDED" || _model.Output == "NOT ÷ 0")
             {
                 return;
             }

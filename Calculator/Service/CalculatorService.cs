@@ -27,6 +27,8 @@ namespace CalculatorView.Service
         {
             _model.Expression = _model.Output;
 
+            ReWriteExpression(_model.Expression.Replace('÷', '/').Replace('x', '*'));
+
             CalculateArithmeticExpression(_model.Expression);
         }
 
@@ -51,6 +53,12 @@ namespace CalculatorView.Service
                 expression = "0-" + expression[1..];
             }
 
+            if (expression.Contains("/0"))
+            {
+                ReWriteOutput("NOT ÷ 0");
+                return;
+            }
+
             string result;
 
             try
@@ -65,7 +73,7 @@ namespace CalculatorView.Service
                 result = "EXCEEDED";
             }
 
-            if (result.Length >= 8 && result.Contains('.'))
+            if ((result.Length >= 8 && result.Contains('.')) || result == "∞" || result == "не число")
             {
                 result = "EXCEEDED";
             }
@@ -104,6 +112,12 @@ namespace CalculatorView.Service
                 return;
             }
 
+            if (_model.Output == "EXCEEDED" || _model.Output == "NOT ÷ 0")
+            {
+                ReWriteOutput(input);
+                return;
+            }
+
             _model.Output = input;
         }
 
@@ -113,9 +127,15 @@ namespace CalculatorView.Service
         /// <param name="input"> Operation adding to an expression. </param>
         public void OperationButtonPressed(string input)
         {
+            if (_model.Output == "EXCEEDED" || _model.Output == "NOT ÷ 0")
+            {
+                return;
+            }
+
             if (_model.Output.Length == 0)
             {
                 _model.Output.Append('0');
+                return;
             }
 
             // Replace the last char to a came one
@@ -167,6 +187,16 @@ namespace CalculatorView.Service
         {
             _model.Output = string.Empty;
             _model.Output = value;
+        }
+
+        /// <summary>
+        /// Rewrites expression field in model.
+        /// </summary>
+        /// <param name="expression"> An expression which replaces expression field in model. </param>
+        private void ReWriteExpression(string expression)
+        {
+            _model.Expression = string.Empty;
+            _model.Expression = expression;
         }
         #endregion
     }

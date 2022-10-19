@@ -1,8 +1,5 @@
-using CalculatorView.Model;
+﻿using CalculatorView.Model;
 using CalculatorView.Service;
-using Microsoft.VisualStudio.TestPlatform.Utilities;
-using System.Linq.Expressions;
-using System.Text;
 using System.Windows.Forms;
 
 namespace Calculator.Tests
@@ -28,22 +25,21 @@ namespace Calculator.Tests
         [InlineData("2+2*2", "6")]
         [InlineData("14/2+9", "16")]
         [InlineData("0*1", "0")]
-        [InlineData("0.1+9.9", "10.0")]
-        [InlineData("12", "12")]
-        [InlineData("0.1", "0.1")]
-        [InlineData("-1", "-1")]
-        [InlineData("-0.2", "-0.2")]
         [InlineData("5+-2", "3")]
+        [InlineData("12x5", "60")]
+        [InlineData("2+2÷2", "3")]
+        [InlineData("1/0", "NOT ÷ 0")]
+        [InlineData("1x3", "3")]
         public void CalculateArithmeticExpression_ResultCalculation(string expression, string expectedResult)
         {
             // Arrange
-            _model.Expression = expression;
+            _model.Output = expression;
 
             // Act
-            _service.CalculateArithmeticExpression(_model.Expression);
+            _service.EqualsButtonPressed();
 
             // Assert
-            Assert.Equal(expectedResult, _model.Output);
+            Assert.Equal(_model.Output, expectedResult);
         }
 
         /// <summary>
@@ -89,6 +85,7 @@ namespace Calculator.Tests
         /// </summary>
         /// <param name="input"> Input value </param>
         [Theory]
+        [InlineData("0")]
         [InlineData("1")]
         [InlineData("2")]
         [InlineData("3")]

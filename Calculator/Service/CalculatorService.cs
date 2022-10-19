@@ -1,6 +1,5 @@
-﻿using System.Data;
-using System.Text;
-using CalculatorView.Model;
+﻿using CalculatorView.Model;
+using System.Data;
 
 namespace CalculatorView.Service
 {

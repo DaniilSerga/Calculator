@@ -31,22 +31,30 @@ namespace CalculatorView.Model
             get => _output!.ToString();
             set
             {
-                if (_output!.Length != 0 && value[1..] == _output!.ToString() && value[0] == '-')
+                if (value == string.Empty)
+                {
+                    _output.Clear();
+
+                    OutputChanged!();
+
+                    return;
+                }
+
+                if (_output.ToString() == "0" && char.IsDigit(char.Parse(value)))
+                {
+                    return;
+                }
+
+                if (value[1..] == _output!.ToString() && value[0] == '-')
                 {
                     _output.Clear();
                     _output.Append(value);
 
                     OutputChanged!();
                 }
-                else if (value != _output!.ToString() && value != string.Empty)
+                else
                 {
                     _output = _output.Append(value);
-
-                    OutputChanged!();
-                }
-                else if (value != _output!.ToString() && value == string.Empty)
-                {
-                    _output.Clear();
 
                     OutputChanged!();
                 }

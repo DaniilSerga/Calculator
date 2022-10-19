@@ -31,8 +31,9 @@ namespace CalculatorView.Service
         }
 
         /// <summary>
-        /// Calculates arithmetic expression.
+        /// Calculates provided expression.
         /// </summary>
+        /// <param name="expression"> Provided expression. </param>
         public void CalculateArithmeticExpression(string expression)
         {
             if (string.IsNullOrEmpty(expression))
@@ -128,14 +129,25 @@ namespace CalculatorView.Service
             SaveAndClearOutputString();
         }
 
+        /// <summary>
+        /// Negates an entered number.
+        /// </summary>
         public void NegateNubmer()
         {
+            if (_model.Output.Length == 0)
+            {
+                return;
+            }
+
             double number = double.Parse(_model.Output);
 
-            _model.Output = (number * (-1)).ToString();
+            ReWriteOutput((number * (-1)).ToString());
         }
 
         #region Output methods
+        /// <summary>
+        /// Puts everything entered in a different string in order to save it.
+        /// </summary>
         private void SaveAndClearOutputString()
         {
             if (string.IsNullOrEmpty(_model.Output))
@@ -147,6 +159,10 @@ namespace CalculatorView.Service
             _model.Output = string.Empty;
         }
 
+        /// <summary>
+        /// Rewrites output string with provided text.
+        /// </summary>
+        /// <param name="value"></param>
         private void ReWriteOutput(string value)
         {
             _model.Output = string.Empty;

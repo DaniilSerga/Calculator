@@ -15,6 +15,7 @@ namespace Calculator
             CalculatorModel.OutputChanged += RefreshOutputField;
         }
 
+        // Refreshes the output box
         private void RefreshOutputField() => textDisplay.Text = _service.GetOutputString();
 
         // Displays entered number on the screen and saves entered value to a local string
@@ -23,7 +24,7 @@ namespace Calculator
             _service.NumberButtonPressed(((Button)sender).Text);
         }
 
-        // TODO Displays entered operation on the screen and saves it to a local string
+        // Allows user to apply operation
         public void OperationButton_Click(object sender, EventArgs e)
         {
             _service.OperationButtonPressed(((Button)sender).Text);
@@ -31,11 +32,9 @@ namespace Calculator
             textDisplay.Text = string.Empty;
         }
 
-        // TODO TEST Calculates the result and displays it on the screen
+        // Calculates the result and displays it on the screen
         public void EqualsButton_Click(object sender, EventArgs e)
         {
-            //string calculationParam = string.Join(string.Empty, expression.ToArray()) + output.ToString();
-
             _service.EqualsButtonPressed();
         }
 
@@ -45,7 +44,7 @@ namespace Calculator
             _service.ClearOutputField();
         }
 
-        // TODO Allow user to interact with the calculator via keyboard
+        // Allows user to interact with the calculator via keyboard
         public void CalculatorForm_KeyPress(object sender, KeyPressEventArgs e)
         {
             if ((!SymbolIsOperation(e.KeyChar) && !char.IsDigit(e.KeyChar)))
@@ -56,25 +55,25 @@ namespace Calculator
             switch (e.KeyChar)
             {
                 case '-':
-                    buttonSubstract.PerformClick();
+                    ButtonSubstract.PerformClick();
                     break;
                 case '+':
-                    buttonAdd.PerformClick();
+                    ButtonAdd.PerformClick();
                     break;
                 case '/':
-                    buttonDivide.PerformClick();
+                    ButtonDivide.PerformClick();
                     break;
                 case '*':
-                    buttonMultiply.PerformClick();
+                    ButtonMultiply.PerformClick();
                     break;
                 case '=':
-                    buttonResult.PerformClick();
+                    ButtonResult.PerformClick();
                     break;
                 case '.':
                     ButtonNegation.PerformClick();
                     break;
                 default:
-                    Button[] buttons = new[] { buttonZero, buttonOne, buttonTwo, buttonThree, buttonFour, buttonFive, buttonSix, buttonSeven, buttonEight, buttonNine };
+                    Button[] buttons = new[] { ButtonZero, ButtonOne, ButtonTwo, ButtonThree, ButtonFour, ButtonFive, ButtonSix, ButtonSeven, ButtonEight, ButtonNine };
                     buttons[int.Parse(e.KeyChar.ToString())].PerformClick();
                     break;
             }
@@ -88,36 +87,34 @@ namespace Calculator
             }
         }
 
-        // Sets enable property of EqualsButton to false, so that user is not able to call calculation method
-        // with incorrect input string
+        // Enables/disables equals button
         public void OutputBox_TextChanged(object sender, EventArgs e)
         {
             string output = textDisplay.Text;
 
             if (output.Length == 0)
             {
-                buttonResult.Enabled = false;
+                ButtonResult.Enabled = false;
                 return;
             }
 
             if (char.IsPunctuation(output[^1]) || char.IsSymbol(output[^1]))
             {
-                buttonResult.Enabled = false;
+                ButtonResult.Enabled = false;
+                return;
             }
-            else
-            {
-                buttonResult.Enabled = true;
-            }
+            
+
+            ButtonResult.Enabled = true;
         }
 
-        private void buttonMinimize_Click(object sender, EventArgs e) => WindowState = FormWindowState.Minimized;
+        // Sets window state to minimized
+        private void ButtonMinimize_Click(object sender, EventArgs e) => WindowState = FormWindowState.Minimized;
 
-        private void buttonClose_Click(object sender, EventArgs e) => this.Close();
+        // Closes the application
+        private void ButtonClose_Click(object sender, EventArgs e) => Close();
 
-        // TODO Negation button
-        private void ButtonNegation_Click(object sender, EventArgs e)
-        {
-            _service.NegateNubmer();
-        }
+        // Neagates the entered number
+        private void ButtonNegation_Click(object sender, EventArgs e) => _service.NegateNubmer();
     }
 }

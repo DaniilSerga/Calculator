@@ -33,6 +33,7 @@ namespace Calculator.Tests
         [InlineData("0.1", "0.1")]
         [InlineData("-1", "-1")]
         [InlineData("-0.2", "-0.2")]
+        [InlineData("5+-2", "3")]
         public void CalculateArithmeticExpression_ResultCalculation(string expression, string expectedResult)
         {
             // Arrange
